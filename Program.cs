@@ -4,8 +4,8 @@ using projectef;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<TasksContext>(option => option.UseInMemoryDatabase("TasksDb"));
-//builder.UseMySQL("server=localhost;database=library;user=user;password=password");
+//builder.Services.AddDbContext<TasksContext>(option => option.UseInMemoryDatabase("TasksDb"));
+builder.Services.AddDbContext<TasksContext>(option => option.UseMySQL("server=localhost;database=TasksDb;user=root;password=root"));
 
 var app = builder.Build();
 
