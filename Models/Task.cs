@@ -3,17 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace projectef.Models;
 
-[Table("Tasks")]
+//[Table("Tasks")]
 public class Task
 {
-  [Key]
+  //[Key]
   public Guid TaskId {get; set;}
 
-  [ForeignKey("CategoryId")]
+  //[ForeignKey("CategoryId")]
   public Guid CategoryId {get; set;}
 
-  [Required]
-  [MaxLength(200)]
+  //[Required]
+  //[MaxLength(200)]
   public string? Title  {get; set;}
 
   public string? Description {get; set;}
@@ -24,7 +24,7 @@ public class Task
 
   public virtual Category Category {get; set;} = default!;
 
-  [NotMapped]
+  //[NotMapped]
   public string? Summary {get; set;}
 }
 
