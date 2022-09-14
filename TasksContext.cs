@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using MySql.EntityFrameworkCore.Extensions;
 using t = projectef.Models;
 
 namespace projectef;
@@ -18,6 +20,7 @@ public class TasksContext: DbContext
       category.HasKey(c => c.CategoryId);
       category.Property(c => c.Name).IsRequired().HasMaxLength(150);
       category.Property(c => c.Description);
+      category.Property(c => c.Weight);
     });
 
     modelBuilder.Entity<t.Task>(task => {
@@ -31,4 +34,13 @@ public class TasksContext: DbContext
       task.Ignore(t => t.Summary);
     });
   }
+}
+
+public class MysqlEntityFrameworkDesignTimeServices : IDesignTimeServices
+{
+    public void ConfigureDesignTimeServices(IServiceCollection serviceCollection)
+    {
+      serviceCollection.AddEntityFrameworkMySQL();
+      new EntityFrameworkRelationalDesignServicesBuilder(serviceCollection).TryAddCoreServices();
+    }
 }
