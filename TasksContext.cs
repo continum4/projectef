@@ -14,6 +14,19 @@ public class TasksContext: DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    List<t.Category> categoriesInit = new List<t.Category>();
+    categoriesInit.Add(new t.Category() {
+      CategoryId = Guid.Parse("824e8ee9-f83d-42dc-9320-8d1d0cb660be"),
+      Name = "Actividades pendientes",
+      Weight = 20
+    });
+
+    categoriesInit.Add(new t.Category() {
+      CategoryId = Guid.Parse("824e8ee9-f83d-42dc-9320-8d1d0cb66002"),
+      Name = "Actividades personales",
+      Weight = 50
+    });
+
     modelBuilder.Entity<t.Category>(category =>
     {
       category.ToTable("Category");
@@ -21,6 +34,24 @@ public class TasksContext: DbContext
       category.Property(c => c.Name).IsRequired().HasMaxLength(150);
       category.Property(c => c.Description);
       category.Property(c => c.Weight);
+      category.HasData(categoriesInit);
+    });
+
+    List<t.Task> tasksInit = new List<t.Task>();
+    tasksInit.Add(new t.Task() {
+      TaskId = Guid.Parse("824e8ee9-f83d-42dc-9320-8d1d0cb66023"),
+      CategoryId = Guid.Parse("824e8ee9-f83d-42dc-9320-8d1d0cb660be"),
+      Title = "Pago de servicios",
+      Priority = t.Priority.Media,
+      CreatedAt = DateTime.Now
+    });
+
+    tasksInit.Add(new t.Task() {
+      TaskId = Guid.Parse("824e8ee9-f83d-42dc-9320-8d1d0cb66024"),
+      CategoryId = Guid.Parse("824e8ee9-f83d-42dc-9320-8d1d0cb66002"),
+      Title = "Terminar tareas",
+      Priority = t.Priority.Baja,
+      CreatedAt = DateTime.Now
     });
 
     modelBuilder.Entity<t.Task>(task => {
@@ -32,6 +63,7 @@ public class TasksContext: DbContext
       task.Property(t => t.Priority);
       task.Property(t => t.CreatedAt);
       task.Ignore(t => t.Summary);
+      task.HasData(tasksInit);
     });
   }
 }
